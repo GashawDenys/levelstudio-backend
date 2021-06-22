@@ -84,8 +84,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "levelstudio",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "USER": "level",
+        "PASSWORD": "level",
         "HOST": "localhost",
         "PORT": "",
     }
