@@ -1,0 +1,33 @@
+<mat-drawer-container [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'" position="end">
+    <div id="side-navigation">
+      <button color="accent" id="log-in-button" mat-raised-button (click)="drawer.toggle()">
+        Log in
+        <mat-icon>login</mat-icon>
+      </button>
+      <button color="accent" id="log-in-button" mat-raised-button (click)="drawer.toggle()">
+        Sign up
+        <mat-icon>app_registration</mat-icon>
+      </button>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-toolbar id="header" color="primary">
+      <span>LevelStudio</span>
+      <div [style.width.%]="50"></div>
+      <button color="primary" id="side-menu-button" mat-raised-button (click)="drawer.toggle()">
+        <mat-icon id="side-menu-button-icon" (mouseover)="onMenuIconHover()">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div id="frame-container">
+      <iframe width="560" height="315" [src]="safeURL"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <mat-toolbar id="footer" color="primary">
+      <span>Alkashi Inc.® All rights reserved</span>
+    </mat-toolbar>
+  </mat-drawer-content>
+</mat-drawer-container>
