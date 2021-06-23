@@ -7,10 +7,15 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 psycopg2 = "*"
-djangorestframework-jwt = "*"
 django-cors-headers = "*"
+django-filter = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
