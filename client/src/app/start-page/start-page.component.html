@@ -1,11 +1,11 @@
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'" position="end">
     <div id="side-navigation">
-      <button color="accent" id="log-in-button" mat-raised-button (click)="drawer.toggle()">
+      <button color="accent" id="log-in-button" mat-raised-button (click)="openLoginForm()">
         Log in
         <mat-icon>login</mat-icon>
       </button>
-      <button color="accent" id="log-in-button" mat-raised-button (click)="drawer.toggle()">
+      <button color="accent" id="log-in-button" mat-raised-button (click)="openRegistrationForm()">
         Sign up
         <mat-icon>app_registration</mat-icon>
       </button>
