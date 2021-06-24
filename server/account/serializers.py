@@ -13,10 +13,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ("id", "email", "password", "first_name", "last_name")
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data):
-        password = validated_data["password"]
+    def validate_password(self, password):
         if len(password) < 6:
             raise serializers.ValidationError("The password is too small")
+        return password
+
+    def create(self, validated_data):
+        password = self.validate_password(validated_data["password"])
         user = CustomUser.objects.create_user(
             email=validated_data["email"],
             password=password,
