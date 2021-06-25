@@ -1,0 +1,20 @@
+@import "general-styles";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host-context(.form-dialog) {
+  width: 500px;
+}
+
+mat-dialog-content {
+  width: 100%;
+}
+
+mat-dialog-content mat-form-field {
+  width: 100%;
+}
+

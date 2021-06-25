@@ -5,7 +5,7 @@ import {AbstractControl, FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
-  styleUrls: ['./sign-up-form.component.css']
+  styleUrls: ['./sign-up-form.component.scss']
 })
 export class SignUpFormComponent{
   @ViewChild('password') password: any;
@@ -16,7 +16,7 @@ export class SignUpFormComponent{
   ]);
   passwordControl = new FormControl("", [
     Validators.required,
-    Validators.minLength(5)
+    Validators.minLength(6)
   ]);
   passwordConfirmControl = new FormControl("", [
     Validators.required,
@@ -39,7 +39,6 @@ export class SignUpFormComponent{
 
   onConfirm() {
     this.formControls.forEach(control => control.markAsTouched())
-    // @ts-ignore
     if(!this.formControls.some(control => control.invalid)){
       this.dialogRef.close();
     }
