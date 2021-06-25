@@ -1,13 +1,28 @@
+//Angular
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
+const angularModules = [
+  BrowserModule,
+  BrowserAnimationsModule,
+  ReactiveFormsModule,
+  FlexLayoutModule
+]
+
+//External libraries
 import {AppRoutingModule} from './app-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
-import {AppComponent} from './app.component';
+const externalLibrariesModules = [
+  AppRoutingModule,
+  FontAwesomeModule
+]
+
+//Project
 import {StartPageComponent} from './start-page/start-page.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from '@angular/forms';
 
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -80,17 +95,13 @@ const materialModules = [
 
 @NgModule({
   declarations: [
-    AppComponent,
     StartPageComponent,
     LogInFormComponent,
     SignUpFormComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
+    ...angularModules,
+    ...externalLibrariesModules,
     ...materialModules
   ],
   providers: [],

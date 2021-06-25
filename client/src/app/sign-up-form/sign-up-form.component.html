@@ -1,5 +1,5 @@
-<h1 mat-dialog-title>Sign up</h1>
-<form #validationForm mat-dialog-content>
+<h1 mat-dialog-title class="unselectable">Sign up</h1>
+<mat-dialog-content #validationForm>
   <p>
     <mat-form-field color="accent">
       <mat-label>Login</mat-label>
@@ -36,7 +36,7 @@
       </mat-error>
     </mat-form-field>
   </p>
-</form>
+</mat-dialog-content>
 <div mat-dialog-actions>
   <button mat-button (click)="onClose()">Close</button>
   <button mat-button (click)="onConfirm()" cdkFocusInitial>Ok</button>

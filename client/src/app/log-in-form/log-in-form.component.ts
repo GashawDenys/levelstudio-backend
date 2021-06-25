@@ -5,7 +5,7 @@ import {FormControl, Validators} from "@angular/forms";
 @Component({
   selector: 'app-log-in-form',
   templateUrl: './log-in-form.component.html',
-  styleUrls: ['./log-in-form.component.css']
+  styleUrls: ['./log-in-form.component.scss']
 })
 export class LogInFormComponent{
   emailControl = new FormControl("", [
@@ -30,7 +30,6 @@ export class LogInFormComponent{
 
   onConfirm() {
     this.formControls.forEach(control => control.markAsTouched())
-    // @ts-ignore
     if(!this.formControls.some(control => control.invalid)){
       this.dialogRef.close();
     }

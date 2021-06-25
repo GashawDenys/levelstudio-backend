@@ -1,9 +1,9 @@
 #header {
-  justify-content: space-around;
+  justify-content: space-around
 }
 
 mat-drawer {
-  width: 15%;
+  width: 200px
 }
 
 mat-drawer-container {
@@ -18,14 +18,14 @@ mat-drawer-container {
   font-size: 40px;
   position: absolute;
   left: 12px;
-  top: 3px;
+  top: 0px
 }
 
 #footer {
   font-size: 16px;
   position: absolute;
   justify-content: center;
-  bottom: 0;
+  bottom: 0
 }
 
 #side-navigation {

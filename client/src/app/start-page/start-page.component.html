@@ -1,11 +1,11 @@
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'" position="end">
     <div id="side-navigation">
-      <button color="accent" id="log-in-button" mat-raised-button (click)="openLoginForm()">
+      <button color="accent" mat-raised-button (click)="openLoginForm()">
         Log in
         <mat-icon>login</mat-icon>
       </button>
-      <button color="accent" id="log-in-button" mat-raised-button (click)="openRegistrationForm()">
+      <button color="accent" mat-raised-button (click)="openRegistrationForm()">
         Sign up
         <mat-icon>app_registration</mat-icon>
       </button>
@@ -14,10 +14,20 @@
 
   <mat-drawer-content>
     <mat-toolbar id="header" color="primary">
-      <span>LevelStudio</span>
-      <div [style.width.%]="50"></div>
-      <button color="primary" id="side-menu-button" mat-raised-button (click)="drawer.toggle()">
-        <mat-icon id="side-menu-button-icon" (mouseover)="onMenuIconHover()">menu</mat-icon>
+      <span class="unselectable">LevelStudio</span>
+      <div [style.width.%]="40"></div>
+      <div [style.width.em]="12" style="display: flex; justify-content: space-between;">
+        <button color="accent" mat-raised-button (click)="openLoginForm()" fxHide.xs>
+          Log in
+          <mat-icon>login</mat-icon>
+        </button>
+        <button color="accent" mat-raised-button (click)="openRegistrationForm()" fxHide.xs>
+          Sign up
+          <mat-icon>app_registration</mat-icon>
+        </button>
+      </div>
+      <button color="primary" id="side-menu-button" mat-raised-button (click)="drawer.toggle()" fxHide fxShow.xs>
+        <mat-icon id="side-menu-button-icon">menu</mat-icon>
       </button>
     </mat-toolbar>
     <div id="frame-container">
@@ -27,7 +37,7 @@
               allowfullscreen></iframe>
     </div>
     <mat-toolbar id="footer" color="primary">
-      <span>Alkashi Inc.® All rights reserved</span>
+      <span class="unselectable">Alkashi Inc.® All rights reserved</span>
     </mat-toolbar>
   </mat-drawer-content>
 </mat-drawer-container>
