@@ -1,10 +1,4 @@
-<div id="frame-container">
-  <iframe width="560" height="315" [src]="safeURL"
-          title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-</div>
-<!--<mat-drawer-container [hasBackdrop]="true">
+<mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'" position="end">
     <div id="side-navigation">
       <button color="accent" mat-raised-button (click)="openLoginForm()">
@@ -36,15 +30,9 @@
         <mat-icon id="side-menu-button-icon">menu</mat-icon>
       </button>
     </mat-toolbar>
-    <div id="frame-container">
-      <iframe width="560" height="315" [src]="safeURL"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <app-start-page></app-start-page>
     <mat-toolbar id="footer" color="primary">
       <span class="unselectable">Alkashi Inc.® All rights reserved</span>
     </mat-toolbar>
   </mat-drawer-content>
 </mat-drawer-container>
--->

@@ -21,9 +21,6 @@ const externalLibrariesModules = [
   FontAwesomeModule
 ]
 
-//Project
-import {StartPageComponent} from './start-page/start-page.component';
-
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
@@ -55,8 +52,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {LogInFormComponent} from './log-in-form/log-in-form.component';
-import {SignUpFormComponent} from './sign-up-form/sign-up-form.component';
 
 const materialModules = [
   MatToolbarModule,
@@ -92,9 +87,15 @@ const materialModules = [
   MatPaginatorModule
 ];
 
+//Project components
+import {StartPageComponent} from './start-page/start-page.component';
+import {LogInFormComponent} from './log-in-form/log-in-form.component';
+import {SignUpFormComponent} from './sign-up-form/sign-up-form.component';
+import {MenuComponent} from './menu/menu.component';
 
 @NgModule({
   declarations: [
+    MenuComponent,
     StartPageComponent,
     LogInFormComponent,
     SignUpFormComponent
@@ -105,7 +106,7 @@ const materialModules = [
     ...materialModules
   ],
   providers: [],
-  bootstrap: [StartPageComponent]
+  bootstrap: [MenuComponent]
 })
 export class AppModule {
 }
