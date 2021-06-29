@@ -1,7 +1,13 @@
-@import "app/styles/general-styles";
+@import "app/styles/consts";
 
 mat-dialog-container {
   background-color: $form-color !important;
+}
+
+@media screen and (max-width: $max-form-responsive-width) {
+  mat-dialog-container {
+    width: 80vw !important;
+  }
 }
 
 .unselectable {

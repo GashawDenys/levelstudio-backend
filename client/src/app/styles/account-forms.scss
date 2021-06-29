@@ -1,13 +1,16 @@
-@import "general-styles";
+@import "consts";
 
 :host {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 500px;
 }
 
-:host-context(.form-dialog) {
-  width: 500px;
+@media screen and (max-width: $max-form-responsive-width) {
+  :host {
+    width: 100%;
+  }
 }
 
 mat-dialog-content {
