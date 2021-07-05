@@ -3,6 +3,8 @@ import {MatDrawer} from "@angular/material/sidenav";
 import {MatDialog} from "@angular/material/dialog";
 import {LogInFormComponent} from "../log-in-form/log-in-form.component";
 import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
+import {LogInFormData} from "../interfaces/LogInFormData";
+import {SignUpFormData} from "../interfaces/SignUpFormData";
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +13,8 @@ import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
 })
 export class MenuComponent implements AfterViewChecked {
   @ViewChild('drawer') sideNav?: MatDrawer;
+  email: string | undefined;
+  password: string | undefined;
 
   toggleMaxWidth = 599;
 
@@ -28,9 +32,11 @@ export class MenuComponent implements AfterViewChecked {
       panelClass: 'form-dialog'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Log in page closed');
-      //this.sideNav.toggle();
+    const onClosed = dialogRef.componentInstance.submitEmitter.subscribe((data: LogInFormData) => {
+      alert(JSON.stringify(data));
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      onClosed.unsubscribe();
     });
   }
 
@@ -39,9 +45,11 @@ export class MenuComponent implements AfterViewChecked {
       panelClass: 'form-dialog'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Registration page closed');
-      //this.sideNav.toggle();
+    const onClosed = dialogRef.componentInstance.submitEmitter.subscribe((data: SignUpFormData) => {
+      alert(JSON.stringify(data));
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      onClosed.unsubscribe();
     });
   }
 }
