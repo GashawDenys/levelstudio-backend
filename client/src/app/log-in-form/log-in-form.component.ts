@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormControl, Validators} from "@angular/forms";
 
@@ -7,21 +7,27 @@ import {FormControl, Validators} from "@angular/forms";
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss']
 })
-export class LogInFormComponent{
+export class LogInFormComponent {
+  submitEmitter = new EventEmitter();
+
+  //region Controls
   emailControl = new FormControl("", [
     Validators.required,
     Validators.email
   ]);
   passwordControl = new FormControl("", [
     Validators.required,
-    Validators.minLength(1)
+    Validators.minLength(6)
   ]);
   formControls = [
     this.emailControl,
     this.passwordControl
   ]
 
-  constructor(public dialogRef: MatDialogRef<LogInFormComponent>) {
+  //endregion
+
+  constructor(
+    public dialogRef: MatDialogRef<LogInFormComponent>) {
   }
 
   onClose() {
@@ -30,7 +36,11 @@ export class LogInFormComponent{
 
   onConfirm() {
     this.formControls.forEach(control => control.markAsTouched())
-    if(!this.formControls.some(control => control.invalid)){
+    if (!this.formControls.some(control => control.invalid)) {
+      this.submitEmitter.emit({
+        login: this.emailControl.value,
+        password: this.passwordControl.value
+      });
       this.dialogRef.close();
     }
   }

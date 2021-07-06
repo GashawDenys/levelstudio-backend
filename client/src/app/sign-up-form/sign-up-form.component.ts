@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, ViewChild} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
 
@@ -7,9 +7,13 @@ import {AbstractControl, FormControl, Validators} from '@angular/forms';
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.scss']
 })
-export class SignUpFormComponent{
+export class SignUpFormComponent {
   @ViewChild('password') password: any;
+  submitEmitter = new EventEmitter();
+  firstName: string | undefined;
+  lastName: string | undefined;
 
+  //region Controls
   emailControl = new FormControl("", [
     Validators.required,
     Validators.email
@@ -30,16 +34,33 @@ export class SignUpFormComponent{
     this.passwordConfirmControl
   ]
 
-  constructor(public dialogRef: MatDialogRef<SignUpFormComponent>) {
+  //endregion
+
+  constructor(
+    public dialogRef: MatDialogRef<SignUpFormComponent>) {
   }
 
   onClose() {
     this.dialogRef.close();
   }
 
+  onFirstNameChanged(action: any) {
+    this.firstName = action.target.value;
+  }
+
+  onSecondNameChanged(action: any) {
+    this.lastName = action.target.value;
+  }
+
   onConfirm() {
     this.formControls.forEach(control => control.markAsTouched())
-    if(!this.formControls.some(control => control.invalid)){
+    if (!this.formControls.some(control => control.invalid)) {
+      this.submitEmitter.emit({
+        email: this.emailControl.value,
+        password: this.passwordControl.value,
+        firstName: this.firstName,
+        lastName: this.lastName
+      });
       this.dialogRef.close();
     }
   }
