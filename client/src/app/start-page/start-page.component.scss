@@ -1,5 +1,13 @@
+@import "../styles/consts";
+
 #frame-container {
   display: flex;
   justify-content: center;
   padding-top: 30px;
+}
+@media screen and (max-width: $max-form-responsive-width) {
+  iframe {
+    width: 80vw !important;
+    height: 45vw;
+  }
 }

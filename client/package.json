@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "silentStart": "ng serve",
+    "silentProxyStart": "ng serve --proxy-config src/proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -25,7 +27,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "axios": "^0.21.1",
-    "rxjs": "~6.6.0",
+    "rxjs": "^6.6.7",
     "scss": "^0.2.4",
     "scss-loader": "0.0.1",
     "tslib": "^2.1.0",

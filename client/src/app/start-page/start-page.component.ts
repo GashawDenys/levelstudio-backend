@@ -12,6 +12,6 @@ export class StartPageComponent {
 
   constructor(
     private _sanitizer: DomSanitizer) {
-    this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube-nocookie.com/embed/LuRqOHYdRNw');
+    this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube-nocookie.com/embed/FKNUb_XFjsA');
   }
 }

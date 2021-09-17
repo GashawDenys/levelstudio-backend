@@ -4,20 +4,20 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 const angularModules = [
   BrowserModule,
   BrowserAnimationsModule,
   ReactiveFormsModule,
-  FlexLayoutModule
+  FlexLayoutModule,
+  HttpClientModule
 ]
 
 //External libraries
-import {AppRoutingModule} from './app-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const externalLibrariesModules = [
-  AppRoutingModule,
   FontAwesomeModule
 ]
 
@@ -92,6 +92,18 @@ import {StartPageComponent} from './start-page/start-page.component';
 import {LogInFormComponent} from './log-in-form/log-in-form.component';
 import {SignUpFormComponent} from './sign-up-form/sign-up-form.component';
 import {MenuComponent} from './menu/menu.component';
+import {AppRoutingModule} from './app-routing.module';
+
+//Services
+import {UserService} from './services/user-service'
+import {LoggingService} from './services/logging-service'
+import {MessageService} from './services/message-service'
+
+const services = [
+  UserService,
+  LoggingService,
+  MessageService
+];
 
 @NgModule({
   declarations: [
@@ -103,10 +115,15 @@ import {MenuComponent} from './menu/menu.component';
   imports: [
     ...angularModules,
     ...externalLibrariesModules,
-    ...materialModules
+    ...materialModules,
+    AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [MenuComponent]
+  providers: [
+    services
+  ],
+  bootstrap: [
+    MenuComponent
+  ]
 })
 export class AppModule {
 }

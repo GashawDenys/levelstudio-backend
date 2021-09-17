@@ -17,13 +17,17 @@
       <span class="unselectable">LevelStudio</span>
       <div [style.width.%]="40"></div>
       <div [style.width.em]="12" style="display: flex; justify-content: space-between;">
-        <button color="accent" mat-raised-button (click)="openLoginForm()" fxHide.xs>
+        <button color="accent" mat-raised-button (click)="openLoginForm()" fxHide.xs *ngIf="!isLogged">
           Log in
           <mat-icon>login</mat-icon>
         </button>
-        <button color="accent" mat-raised-button (click)="openRegistrationForm()" fxHide.xs>
+        <button color="accent" mat-raised-button (click)="openRegistrationForm()" fxHide.xs *ngIf="!isLogged">
           Sign up
           <mat-icon>app_registration</mat-icon>
+        </button>
+        <button color="accent" mat-raised-button (click)="openLogoutForm()" fxHide.xs *ngIf="isLogged">
+          Log out
+          <mat-icon>logout</mat-icon>
         </button>
       </div>
       <button color="primary" id="side-menu-button" mat-raised-button (click)="drawer.toggle()" fxHide fxShow.xs>
