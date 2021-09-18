@@ -1,13 +1,17 @@
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'" position="end">
     <div id="side-navigation">
-      <button color="accent" mat-raised-button (click)="openLoginForm()">
+      <button color="accent" mat-raised-button (click)="openLoginForm()" *ngIf="!localStorage.token">
         Log in
         <mat-icon>login</mat-icon>
       </button>
-      <button color="accent" mat-raised-button (click)="openRegistrationForm()">
+      <button color="accent" mat-raised-button (click)="openRegistrationForm()" *ngIf="!localStorage.token">
         Sign up
         <mat-icon>app_registration</mat-icon>
+      </button>
+      <button color="accent" mat-raised-button (click)="openLogoutForm()" *ngIf="localStorage.token">
+        Log out
+        <mat-icon>logout</mat-icon>
       </button>
     </div>
   </mat-drawer>
@@ -17,20 +21,20 @@
       <span class="unselectable">LevelStudio</span>
       <div [style.width.%]="40"></div>
       <div [style.width.em]="12" style="display: flex; justify-content: space-between;">
-        <button color="accent" mat-raised-button (click)="openLoginForm()" fxHide.xs *ngIf="!isLogged">
+        <button color="accent" mat-raised-button (click)="openLoginForm()" fxHide.xs *ngIf="!localStorage.token">
           Log in
           <mat-icon>login</mat-icon>
         </button>
-        <button color="accent" mat-raised-button (click)="openRegistrationForm()" fxHide.xs *ngIf="!isLogged">
+        <button color="accent" mat-raised-button (click)="openRegistrationForm()" fxHide.xs *ngIf="!localStorage.token">
           Sign up
           <mat-icon>app_registration</mat-icon>
         </button>
-        <button color="accent" mat-raised-button (click)="openLogoutForm()" fxHide.xs *ngIf="isLogged">
+        <button color="accent" mat-raised-button (click)="openLogoutForm()" fxHide.xs *ngIf="localStorage.token">
           Log out
           <mat-icon>logout</mat-icon>
         </button>
       </div>
-      <button color="primary" id="side-menu-button" mat-raised-button (click)="drawer.toggle()" fxHide fxShow.xs>
+      <button color="primary" id="side-menu-button" mat-raised-button (click)="sideNav?.toggle()" fxHide fxShow.xs>
         <mat-icon id="side-menu-button-icon">menu</mat-icon>
       </button>
     </mat-toolbar>

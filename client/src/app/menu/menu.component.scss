@@ -1,5 +1,14 @@
 #header {
   justify-content: space-around;
+  height: 50px;
+}
+
+#footer {
+  font-size: 16px;
+  position: absolute;
+  justify-content: center;
+  bottom: 0;
+  height: 50px;
 }
 
 mat-drawer {
@@ -19,13 +28,6 @@ mat-drawer-container {
   position: absolute;
   left: 12px;
   top: 0px
-}
-
-#footer {
-  font-size: 16px;
-  position: absolute;
-  justify-content: center;
-  bottom: 0;
 }
 
 #side-navigation {

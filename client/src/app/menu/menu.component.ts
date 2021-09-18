@@ -6,40 +6,32 @@ import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
 import {LogInFormData} from "../interfaces/LogInFormData";
 import {SignUpFormData} from "../interfaces/SignUpFormData";
 import {LoggingService} from "../services/logging-service";
-import {MessageService} from "../services/message-service";
-import {Subscription} from "rxjs";
-import {MessageConst} from "../consts/MessageConst";
-import {Token} from "@angular/compiler";
+import {MessageKey} from "../consts/MessageKey";
+import {IMessageReceiver, Message, MessageReceiver} from "../interfaces/Message";
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements AfterViewChecked, OnDestroy {
+export class MenuComponent implements AfterViewChecked {
   @ViewChild('drawer') sideNav?: MatDrawer;
+  toggleMaxWidth = 599;
   email: string | undefined;
   password: string | undefined;
-  isLogged: unknown = false;
-  subscription: Subscription;
-
-  toggleMaxWidth = 599;
+  localStorage: any = localStorage;
 
   constructor(
     public dialog: MatDialog,
     private _loggingServiceModule: LoggingService,
-    private _messageService: MessageService) {
-    this.subscription = this.initSubscription();
+    public messageReceiver: MessageReceiver) {
+    this.createMessageKeyHandlerPairs();
   }
 
   ngAfterViewChecked(): void {
     if (window.innerWidth > this.toggleMaxWidth) {
       this.sideNav?.close();
     }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   openLoginForm() {
@@ -49,7 +41,6 @@ export class MenuComponent implements AfterViewChecked, OnDestroy {
 
     const onClosed = dialogRef.componentInstance.submitEmitter.subscribe(async (data: LogInFormData) => {
       const result = await this._loggingServiceModule.login(data);
-      this.isLogged = result;
     });
     dialogRef.afterClosed().subscribe(() => {
       onClosed.unsubscribe();
@@ -70,27 +61,20 @@ export class MenuComponent implements AfterViewChecked, OnDestroy {
   }
 
   openLogoutForm() {
-    this.isLogged = false;
+    this._loggingServiceModule.logout();
   }
 
-  initSubscription() {
-    return this._messageService.getObservable().subscribe(message => {
-      const keyHandlerPairs = this.getMessageKeyHandlerPairs();
-      if(keyHandlerPairs.hasOwnProperty(message.key)){
-        // @ts-ignore
-        keyHandlerPairs[message.key](message.value);
-      }
-    });
+  createMessageKeyHandlerPairs() {
+    this.messageReceiver.addKeyHandlerPairs(this.getMessageKeyHandlerPairs());
   }
 
-  getMessageKeyHandlerPairs() {
-    const pairs = {};
-    // @ts-ignore
-    pairs[MessageConst.Token] = this.tokenMessageHandler;
+  getMessageKeyHandlerPairs(): { [index: number]: Function }{
+    const pairs: { [index: number]: Function } = {};
+    pairs[MessageKey.Token] = this.tokenMessageHandler;
     return pairs;
   }
 
   tokenMessageHandler(value: any) {
-
+    console.log(value);
   }
 }

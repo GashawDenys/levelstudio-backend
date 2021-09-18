@@ -98,11 +98,17 @@ import {AppRoutingModule} from './app-routing.module';
 import {UserService} from './services/user-service'
 import {LoggingService} from './services/logging-service'
 import {MessageService} from './services/message-service'
+import {MessageSender, MessageReceiver} from './interfaces/Message';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component'
+import {HttpClient} from "./services/Clients/HttpClient";
 
 const services = [
   UserService,
   LoggingService,
-  MessageService
+  MessageService,
+  MessageSender,
+  MessageReceiver,
+  HttpClient
 ];
 
 @NgModule({
@@ -110,7 +116,8 @@ const services = [
     MenuComponent,
     StartPageComponent,
     LogInFormComponent,
-    SignUpFormComponent
+    SignUpFormComponent,
+    ErrorDialogComponent
   ],
   imports: [
     ...angularModules,

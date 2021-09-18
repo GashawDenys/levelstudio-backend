@@ -2,24 +2,22 @@ import {Injectable} from '@angular/core';
 import {LogInFormData} from "../interfaces/LogInFormData";
 import {UserService} from "./user-service";
 import {environment} from "../../environments/environment";
-import {RefreshTokenRequest, GetTokenRequest} from "../interfaces/ServiceModels/TokenModels";
+import {RefreshTokenRequest, GetTokenRequest, GetTokenResponse} from "../interfaces/ServiceModels/TokenModels";
 import {MessageService} from "./message-service";
-import {MessageConst} from "../consts/MessageConst";
+import {MessageKey} from "../consts/MessageKey";
+import {IMessageSender, MessageSender} from "../interfaces/Message";
 
 @Injectable()
-export class LoggingService {
-
-  public token: string | null = null;
+export class LoggingService implements IMessageSender{
 
   public errors: any = [];
 
   private _refreshingToken: string = '';
-
   private _timer: any;
 
   constructor(
     private _userService: UserService,
-    private _messageService: MessageService
+    public messageSender: MessageSender
   ) {
   }
 
@@ -32,7 +30,7 @@ export class LoggingService {
       this._userService.loginRequest(model)
         .then(data => {
           // @ts-ignore
-          this.updateData(data['access'], data['refresh']);
+          this.updateData(data.access, data.refresh);
           resolve(true);
         })
         .catch(err => {
@@ -44,9 +42,10 @@ export class LoggingService {
   }
 
   public async logout() {
-    this.token = null;
+    delete localStorage.token;
     clearTimeout(this._timer);
-    this._messageService.clearMessages();
+    this.sendTokenMessage('');
+    this.messageSender.clearMessages();
   }
 
   private async refreshToken() {
@@ -56,21 +55,21 @@ export class LoggingService {
     this._userService.refreshTokenRequest(model);
     return new Promise((resolve, reject) => {
       this._userService.refreshTokenRequest(model)
-        .then(data => {
-          // @ts-ignore
-          this.updateData(data['access']);
+        // @ts-ignore
+        .then((data: GetTokenResponse) => {
+          this.updateData(data.access);
           resolve(true);
         })
-        .catch(err => {
-          this.errors = err['error'];
+        .catch(resp => {
+          this.errors = resp.error;
           this.logout();
           resolve(false);
         });
     });
   }
 
-  private updateData(accessToken: string, refreshingToken: string) {
-    this.token = accessToken;
+  private updateData(accessToken: string, refreshingToken?: string) {
+    localStorage.token = accessToken;
     if (refreshingToken) {
       this._refreshingToken = refreshingToken;
     }
@@ -80,6 +79,6 @@ export class LoggingService {
   }
 
   sendTokenMessage(token: any) {
-    this._messageService.send({key: MessageConst.Token, value: token});
+    this.messageSender.send(MessageKey.Token, token);
   }
 }
