@@ -20,7 +20,7 @@
         Password is required
       </mat-error>
       <mat-error *ngIf="!passwordControl.errors?.required && passwordControl.errors?.minlength">
-        Please enter a valid password (at least 5 symbols)
+        Please enter a valid password (at least 6 symbols)
       </mat-error>
     </mat-form-field>
   </p>
@@ -39,7 +39,10 @@
   <p>
     <mat-form-field color="accent">
       <mat-label>First name</mat-label>
-      <input matInput (change)="onFirstNameChanged($event)" type="text">
+      <input matInput type="text" [formControl]="firstNameControl">
+      <mat-error *ngIf="firstNameControl.errors?.required">
+        Name is required
+      </mat-error>
     </mat-form-field>
   </p>
   <p>

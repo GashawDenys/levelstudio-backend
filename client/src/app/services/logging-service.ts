@@ -2,10 +2,14 @@ import {Injectable} from '@angular/core';
 import {LogInFormData} from "../interfaces/LogInFormData";
 import {UserService} from "./user-service";
 import {environment} from "../../environments/environment";
-import {RefreshTokenRequest, GetTokenRequest, GetTokenResponse} from "../interfaces/ServiceModels/TokenModels";
-import {MessageService} from "./message-service";
+import {
+  RefreshTokenRequest,
+  GetTokenRequest
+} from "../interfaces/ServiceModels/TokenModels";
+import {RegistrationModel} from "../interfaces/ServiceModels/AccountModels";
 import {MessageKey} from "../consts/MessageKey";
 import {IMessageSender, MessageSender} from "../interfaces/Message";
+import {SignUpFormData} from "../interfaces/SignUpFormData";
 
 @Injectable()
 export class LoggingService implements IMessageSender{
@@ -21,7 +25,7 @@ export class LoggingService implements IMessageSender{
   ) {
   }
 
-  public async login(formData: LogInFormData) {
+  public async logIn(formData: LogInFormData) {
     const model: GetTokenRequest = {
       email: formData.login,
       password: formData.password
@@ -34,14 +38,35 @@ export class LoggingService implements IMessageSender{
           resolve(true);
         })
         .catch(err => {
-          this.errors = err['error'];
-          this.logout();
+          this.errors = err.error;
+          this.logOut();
           resolve(false);
         });
     });
   }
 
-  public async logout() {
+  public async signUp(formData: SignUpFormData) {
+    const model: RegistrationModel = {
+      email: formData.email,
+      password: formData.password,
+      first_name: formData.firstName,
+      last_name: formData.lastName
+    };
+    return new Promise((resolve, reject) => {
+      this._userService.signUpRequest(model)
+        .then(data => {
+          // @ts-ignore
+          this.logIn({login: formData.email, password: formData.password});
+          resolve(true);
+        })
+        .catch(err => {
+          this.errors = err.error;
+          resolve(false);
+        });
+    });
+  }
+
+  public async logOut() {
     delete localStorage.token;
     clearTimeout(this._timer);
     this.sendTokenMessage('');
@@ -62,7 +87,7 @@ export class LoggingService implements IMessageSender{
         })
         .catch(resp => {
           this.errors = resp.error;
-          this.logout();
+          this.logOut();
           resolve(false);
         });
     });

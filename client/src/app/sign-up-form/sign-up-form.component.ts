@@ -10,7 +10,6 @@ import {AbstractControl, FormControl, Validators} from '@angular/forms';
 export class SignUpFormComponent {
   @ViewChild('password') password: any;
   submitEmitter = new EventEmitter();
-  firstName: string | undefined;
   lastName: string | undefined;
 
   //region Controls
@@ -28,10 +27,14 @@ export class SignUpFormComponent {
       return control.value === this.password?.nativeElement?.value ? null : {equalityDisrupted: {value: control.value}};
     }
   ]);
+  firstNameControl = new FormControl("", [
+    Validators.required
+  ]);
   formControls = [
     this.emailControl,
     this.passwordControl,
-    this.passwordConfirmControl
+    this.passwordConfirmControl,
+    this.firstNameControl
   ]
 
   //endregion
@@ -44,10 +47,6 @@ export class SignUpFormComponent {
     this.dialogRef.close();
   }
 
-  onFirstNameChanged(action: any) {
-    this.firstName = action.target.value;
-  }
-
   onSecondNameChanged(action: any) {
     this.lastName = action.target.value;
   }
@@ -58,7 +57,7 @@ export class SignUpFormComponent {
       this.submitEmitter.emit({
         email: this.emailControl.value,
         password: this.passwordControl.value,
-        firstName: this.firstName,
+        firstName: this.firstNameControl.value,
         lastName: this.lastName
       });
       this.dialogRef.close();

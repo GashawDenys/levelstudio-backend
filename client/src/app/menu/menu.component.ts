@@ -40,7 +40,7 @@ export class MenuComponent implements AfterViewChecked {
     });
 
     const onClosed = dialogRef.componentInstance.submitEmitter.subscribe(async (data: LogInFormData) => {
-      const result = await this._loggingServiceModule.login(data);
+      this._loggingServiceModule.logIn(data);
     });
     dialogRef.afterClosed().subscribe(() => {
       onClosed.unsubscribe();
@@ -52,8 +52,8 @@ export class MenuComponent implements AfterViewChecked {
       panelClass: 'form-dialog'
     });
 
-    const onClosed = dialogRef.componentInstance.submitEmitter.subscribe((data: SignUpFormData) => {
-      alert(JSON.stringify(data));
+    const onClosed = dialogRef.componentInstance.submitEmitter.subscribe(async (data: SignUpFormData) => {
+      this._loggingServiceModule.signUp(data);
     });
     dialogRef.afterClosed().subscribe(() => {
       onClosed.unsubscribe();
@@ -61,7 +61,7 @@ export class MenuComponent implements AfterViewChecked {
   }
 
   openLogoutForm() {
-    this._loggingServiceModule.logout();
+    this._loggingServiceModule.logOut();
   }
 
   createMessageKeyHandlerPairs() {
