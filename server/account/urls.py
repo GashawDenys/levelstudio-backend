@@ -4,5 +4,5 @@ from .views import RegisterApi
 
 
 urlpatterns = [
-    path("register", RegisterApi.as_view()),
+    path("register/", RegisterApi.as_view()),
 ]
