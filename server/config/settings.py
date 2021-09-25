@@ -139,7 +139,7 @@ AUTH_USER_MODEL = "account.CustomUser"
 
 STATIC_URL = "/static/"
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ("http://localhost:8081",)
 
 # Default primary key field type
