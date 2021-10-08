@@ -1,32 +1,47 @@
-from pathlib import Path
+import os
+import environ
 
 from django.conf.global_settings import AUTH_USER_MODEL
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 
-SECRET_KEY = "django-insecure-5oh!ep(h_wz#3owal9imga@tf6e$-lu62t$v8=3rt3zboi6!rp"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+SECRET_KEY = env("SECRET_KEY")
+
+DEBUG = env("DEBUG")
+
+ALLOWED_HOSTS = ["*"]
 
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # apps
-    "account",
-    "app",
-    # third party libraries
+]
+
+THIRD_PARTY_APPS = [
     "rest_framework",
     "corsheaders",
 ]
+
+LOCAL_APPS = [
+    "account",
+    "app",
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -61,22 +76,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "levelstudio",
-        "USER": "level",
-        "PASSWORD": "01qwerty",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
         "HOST": "localhost",
         "PORT": "",
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
